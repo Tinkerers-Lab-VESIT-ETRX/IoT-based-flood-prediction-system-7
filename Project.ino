@@ -75,8 +75,8 @@ void loop ()
       lcd.print("Its Raining");
       delay(250);
 
-      //Serial.print("Weather Forecast: ");
-      //Serial.println("Its Raining");
+      Serial.print("Weather Forecast: ");
+      Serial.println("Its Raining");
    }
    else
    {
@@ -110,9 +110,9 @@ void loop ()
    lcd.print(" cm");
    delay(250);
 
-   //Serial.print("Water level: ");
-   //Serial.print( cm );
-   //Serial.println(" cm");
+   Serial.print("Water level: ");
+   Serial.print( cm );
+   Serial.println(" cm");
    
    currentTime = millis();
    // Every second, calculate and print litres/hour
@@ -159,12 +159,12 @@ void loop ()
       lcd.print(" L");
       delay(250);
 
-      //Serial.print("Rate: ");
-      //Serial.print( flow_frequency );
-      //Serial.println(" L/M");
-      //Serial.print("Vol:");
-      //Serial.print(vol);
-      //Serial.println(" L");
+      Serial.print("Rate: ");
+      Serial.print( flow_frequency );
+      Serial.println(" L/M");
+      Serial.print("Vol:");
+      Serial.print(vol);
+      Serial.println(" L");
     }
    }
    
