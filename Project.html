@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  
+</head>
+<body>
+
+<h1>Sensor Data Plotting</h1>
+<div class="row" style="padding:10px 10px 10px 10px;">
+<div class="jumbotron" style="height:600px;margin-left:20px;margin-right:20px;border-radius:20px;width:1000px;">
+    <p> Humidity Sensor Data </p>
+    <hr>
+    <label>Please Select the date:-</label><input type = "Date"  id="demo1">   
+    <button class="btn btn-success" type="button" onclick="Humidity()">Plot Graph</button>
+    <br><br>
+    <div id="chartContainer1"></div>
+</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    function Humidity() {
+    var selectedDate=document.getElementById("demo1").value;
+    console.log(selectedDate);
+    const Http = new XMLHttpRequest();
+    const url1='https://flood-prediction-system-7dac3-default-rtdb.firebaseio.com//Humidity.json';
+   
+
+    Http.onreadystatechange = () => {
+        if (Http.readyState == 4 && Http.status == 200) {
+            console.log(Http.responseText);
+            var resData=JSON.parse(Http.responseText);
+            console.log(resData);
+            var i;
+            var plotData=[];
+
+            for(i=0;i<resData.length;i++) {
+                var y=resData[i]['Reading']
+                if(resData[i]['Date']==selectedDate){
+                var temp1=resData[i]['Date'].split('-');
+                var temp2=resData[i]['Time'].split(':');
+                var x=new Date(temp1[0],temp1[1]-1,temp1[2],temp2[0],temp2[1]);
+                console.log(x,y);
+                plotData.push({x:x,y:y});
+                }
+                
+            }
+            
+            //console.log(plotData);
+            if(plotData.length!=0){
+                var chart = new CanvasJS.Chart("chartContainer1",
+                {
+                    title:{
+                        text: "Humidity"
+                    },
+                    axisX:{
+                        gridColor: "cyan" ,
+                        gridThickness: 2        
+                    },
+                    axisY:{        
+                        gridColor: "cyan"
+                    },
+                    data: [
+                        {
+                            type: "line",
+
+                            dataPoints: plotData
+                        }
+
+                    ]
+                });
+
+                chart.render();
+            }
+            else{
+                document.getElementById("chartContainer1").innerHTML="No data available for this date."
+            }
+        } 
+    }
+    Http.open("GET", url1);
+  
+    Http.send();
+    
+}
+
+</script>
+
+<div class="row" style="padding:10px 10px 10px 10px;">
+<div class="jumbotron" style="height:600px;margin-left:20px;margin-right:20px;border-radius:20px;width:1000px;">
+    <p> Temperature Sensor Data </p>
+    <hr>
+    <label>Please Select the date:-</label><input type = "Date"  id="demo2">   
+    <button class="btn btn-success" type="button" onclick="Temperature()">Plot Graph</button>
+    <br><br>
+    <div id="chartContainer2"></div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+
+    function Temperature() {
+    var selectedDate=document.getElementById("demo2").value;
+    console.log(selectedDate);
+    const Http = new XMLHttpRequest();
+    const url2='https://flood-prediction-system-7dac3-default-rtdb.firebaseio.com//Temperature.json';
+   
+
+    Http.onreadystatechange = () => {
+        if (Http.readyState == 4 && Http.status == 200) {
+            console.log(Http.responseText);
+            var resData=JSON.parse(Http.responseText);
+            console.log(resData);
+            var i;
+            var plotData=[];
+
+            for(i=0;i<resData.length;i++) {
+                var y=resData[i]['Reading']
+                if(resData[i]['Date']==selectedDate){
+                var temp1=resData[i]['Date'].split('-');
+                var temp2=resData[i]['Time'].split(':');
+                var x=new Date(temp1[0],temp1[1]-1,temp1[2],temp2[0],temp2[1]);
+                console.log(x,y);
+                plotData.push({x:x,y:y});
+                }
+                
+            }
+            
+            //console.log(plotData);
+            if(plotData.length!=0){
+                var chart = new CanvasJS.Chart("chartContainer2",
+                {
+                    title:{
+                        text: "Temperature"
+                    },
+                    axisX:{
+                        gridColor: "cyan" ,
+                        gridThickness: 2        
+                    },
+                    axisY:{        
+                        gridColor: "cyan"
+                    },
+                    data: [
+                        {
+                            type: "line",
+
+                            dataPoints: plotData
+                        }
+
+                    ]
+                });
+
+                chart.render();
+            }
+            else{
+                document.getElementById("chartContainer2").innerHTML="No data available for this date."
+            }
+        } 
+    }
+    Http.open("GET", url2);
+    
+    Http.send();
+    
+}
+
+
+</script>
+
+
+</body>
+</html>
